@@ -7,36 +7,57 @@
 </head>
 
 <body>
-    <div id="gameText">
+    <main>
+        <section id="left">
+            <div id="objects">
+                <h4>Room Objects</h4>
+            </div>
 
-    </div>
+            <div id="places">
+                <h4>Room Exits</h4>
+                <ul data-bind="foreach: room().exits()">
+                    <li data-bind="text: name"></li>
+                </ul>
+            </div>
+        </section>
 
-    <input type="text" id="verbLine">
+        <section id="main">
+            <div id="gameText">
+                <p>Welcome to the game</p>
+            </div>
 
-    <div id="verbs">
+            <input type="text" id="verbLine">
 
-    </div>
+            <ul id="verbs" data-bind="foreach: verbs">
+                <li data-bind="text: $data"></li>
+            </ul>
+        </section>
 
-    <div id="objects">
+        <section id="right">
+            <div id="inventory">
+                <h4>Inventory</h4>
+            </div>
 
-    </div>
-
-    <div id="places">
-
-    </div>
-
-    <div id="inventory">
-
-    </div>
+            <div id="money">
+                <h4>Money</h4>
+                <span data-bind="text: money"></span> QuidBucks
+            </div>
+        </section>
+    </main>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/knockout/dist/knockout.js"></script>
 
     <!-- game scripts -->
+    <script src="scripts/gameViewModel.js"></script>
+    <script src="scripts/rooms/street.js"></script>
+    <script src="scripts/rooms/abandoned_office.js"></script>
 
     <script>
         $(() => {
-            ko.applyBindings(gameVM);
+            initGame();
+            
+            ko.applyBindings(gameViewModel);
         });
     </script>
 </body>
