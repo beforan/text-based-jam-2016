@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Swiney Todd: Origins</title>
+
+    <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+    <div id="gameText">
+
+    </div>
+
+    <input type="text" id="verbLine">
+
+    <div id="verbs">
+
+    </div>
+
+    <div id="objects">
+
+    </div>
+
+    <div id="places">
+
+    </div>
+
+    <div id="inventory">
+
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+
+    <!-- game scripts -->
+
+    <script>
+        $(() => {
+            ko.applyBindings(gameVM);
+        });
+    </script>
+</body>
+
+</html>
