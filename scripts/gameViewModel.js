@@ -7,7 +7,8 @@ var gameViewModel = {
     
     inventory: ko.observableArray([]),
     money: ko.observable(0),
-    verbs: ko.observableArray([
+    flags: [],
+    verbs: [
         "open",
         "close",
         "pick up",
@@ -15,9 +16,9 @@ var gameViewModel = {
         "talk to",
         "go to",
         "examine"
-    ]),
+    ],
     verbLineValue: ko.observable(""),
-    room: null,
+    room: ko.observable(),
     
     
     
@@ -31,7 +32,7 @@ var gameViewModel = {
 
             if (!room.hasOwnProperty("exitIds")) continue;
 
-            room.exits = ko.observableArray([]);
+            room.exits = [];
 
             room.exitIds.forEach(exitId => {
                 room.exits.push(rooms[exitId]);
@@ -48,6 +49,8 @@ var gameViewModel = {
     processVerbLine: () => {
         api.debugLog(`verb line: ${gameViewModel.verbLineValue()}`);
 
+        api.goToRoom(gameViewModel.verbLineValue());
+
         //reset the input
         gameViewModel.verbLineValue("");
     }
@@ -56,7 +59,7 @@ var gameViewModel = {
 var api = {
     //travel
     goToRoom: roomId => {
-        gameViewModel.room = ko.observable(rooms[roomId]);
+        gameViewModel.room(rooms[roomId]);
 
         gameViewModel.room().onEnter();
     },

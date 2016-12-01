@@ -1,4 +1,11 @@
 rooms.abandoned_office = {
     name: "Abandoned Office",
-    exitIds: []
+    exitIds: [
+        "street"
+    ],
+    onEnter: () => {
+        api.clearScreen();
+        
+        api.debugLog("entered abandoned_office");
+    }
 }
