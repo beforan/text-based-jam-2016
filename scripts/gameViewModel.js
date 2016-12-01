@@ -80,7 +80,8 @@ var api = {
     },
 
     debugLog: text => {
-        $("#gameText").append(`<p class="text-debug">DEBUG: ${text}</p>`);
+        if(gameViewModel.debug)
+            $("#gameText").append(`<p class="text-debug">DEBUG: ${text}</p>`);
     },
 
     //object ownership
