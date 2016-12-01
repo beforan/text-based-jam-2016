@@ -14,11 +14,42 @@ var gameViewModel = {
         "go to",
         "examine"
     ]),
-    room: null
-    //api: api
-};
+    verbLineValue: ko.observable(""),
+    room: null,
+    
+    
+    
+    
+    initGame: () => {
+        //wire up rooms to each other
+        for (var roomId in rooms) {
+            if (!rooms.hasOwnProperty(roomId)) continue;
 
-var ui = {};
+            var room = rooms[roomId];
+
+            if (!room.hasOwnProperty("exitIds")) continue;
+
+            room.exits = ko.observableArray([]);
+
+            room.exitIds.forEach(exitId => {
+                room.exits.push(rooms[exitId]);
+            });
+
+            room.exitIds = null;
+        }
+
+        //set the initial room
+        api.goToRoom("street");
+    },
+
+
+    processVerbLine: () => {
+        api.log(`verb line: ${gameViewModel.verbLineValue()}`);
+
+        //reset the input
+        gameViewModel.verbLineValue("");
+    }
+};
 
 var api = {
     //travel
@@ -27,7 +58,7 @@ var api = {
 
         gameViewModel.room().onEnter();
     },
-    
+
     //text output
     describe: text => {
 
@@ -80,25 +111,3 @@ var api = {
 
     }
 };
-
-function initGame() {
-    //wire up rooms to each other
-    for (var roomId in rooms) {
-        if (!rooms.hasOwnProperty(roomId)) continue;
-        
-        var room = rooms[roomId];
-
-        if (!room.hasOwnProperty("exitIds")) continue;
-
-        room.exits = ko.observableArray([]);
-
-        room.exitIds.forEach(exitId => {
-            room.exits.push(rooms[exitId]);
-        });
-
-        room.exitIds = null;
-    }
-
-    //set the initial room
-    api.goToRoom("street");
-}

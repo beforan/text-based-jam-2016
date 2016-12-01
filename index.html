@@ -26,7 +26,10 @@
                 <p>Welcome to the game</p>
             </div>
 
-            <input type="text" id="verbLine">
+            <form data-bind="submit: processVerbLine">
+                <input type="text" id="verbLine" data-bind="textInput: verbLineValue">
+                <button type="submit" data-bind="enable: verbLineValue() != ''">Submit Verb Line</button>
+            </form>
 
             <ul id="verbs" data-bind="foreach: verbs">
                 <li data-bind="text: $data"></li>
@@ -55,7 +58,7 @@
 
     <script>
         $(() => {
-            initGame();
+            gameViewModel.initGame();
             
             ko.applyBindings(gameViewModel);
         });
