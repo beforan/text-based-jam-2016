@@ -3,11 +3,9 @@ var objects = {}; //all objects?!
 var rooms = {}; //all rooms?
 
 var gameViewModel = {
-    debug: true,
-    
     inventory: ko.observableArray([]),
     money: ko.observable(0),
-    flags: [],
+    flags: {debug: true},
     verbs: [
         "open",
         "close",
@@ -119,10 +117,15 @@ var api = {
     },
 
     isSet: flag => {
-
+        return gameViewModel.flags[flag];
+    },
+    
+    //flag manipulation
+    setFlag: flag => {
+        gameViewModel.flags[flag] = true;
     },
 
-    isNotSet: flag => {
-
+    clearFlag: flag => {
+        gameViewModel.flags[flag] = null;
     }
 };

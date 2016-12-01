@@ -1,4 +1,5 @@
 rooms.street = {
+    id: "street",
     name: "Main Street",
     objects: [],
     exitIds: ["abandoned_office"],
