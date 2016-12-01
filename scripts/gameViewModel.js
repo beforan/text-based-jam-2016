@@ -3,6 +3,8 @@ var objects = {}; //all objects?!
 var rooms = {}; //all rooms?
 
 var gameViewModel = {
+    debug: true,
+    
     inventory: ko.observableArray([]),
     money: ko.observable(0),
     verbs: ko.observableArray([
@@ -44,7 +46,7 @@ var gameViewModel = {
 
 
     processVerbLine: () => {
-        api.log(`verb line: ${gameViewModel.verbLineValue()}`);
+        api.debugLog(`verb line: ${gameViewModel.verbLineValue()}`);
 
         //reset the input
         gameViewModel.verbLineValue("");
@@ -59,17 +61,26 @@ var api = {
         gameViewModel.room().onEnter();
     },
 
-    //text output
+    //text output (these are kind of bad as they use the ui elements directly, not KO bindings,
+    //but it's easier for html output, which is part of the point of doing this on the web (for easy inline text colouring...))
+    clearScreen: () => {
+        $("#gameText p").html("");
+    },
+    
     describe: text => {
-
+        $("#gameText").append(`<p class="text-describe">${text}</p>`);
     },
 
     speak: (name, color, text) => {
-
+        $("#gameText").append(`<p class="text-speech">${name}: <span style="color: ${color}">${text}</span></p>`);
     },
 
     log: text => {
-        $("#gameText").append(`<p>${text}</p>`);
+        $("#gameText").append(`<p class="text-log">${text}</p>`);
+    },
+
+    debugLog: text => {
+        $("#gameText").append(`<p class="text-debug">DEBUG: ${text}</p>`);
     },
 
     //object ownership

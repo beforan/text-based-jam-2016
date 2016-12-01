@@ -1,5 +1,35 @@
+html {
+    font-family: Tahoma, Arial, sans-serif
+}
+
+#verbs {
+    list-style: none;
+}
+
 main {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+}
+
+#gameText {
+    background: black;
+    padding: 1em;
+}
+
+.text-speech {
+    color: lightgrey;
+    font-weight: bold;
+}
+
+.text-describe {
+    color: lightgrey;
+}
+
+.text-log {
+    color: orange;
+}
+
+.text-debug {
+    color: red;
 }
